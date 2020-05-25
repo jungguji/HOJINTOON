@@ -6,8 +6,17 @@
 
 	<!-- 회원 가입 -->
 	<insert id="signup">
-		insert into tbl_member(userId, userPass, userName, userPhon)
-		values(#{userId}, #{userPass}, #{userName}, #{userPhon}) 
+		insert into tbl_member(userId, userPass, userName, userPhone)
+		values(#{userId}, #{userPass}, #{userName}, #{userPhone})
 	</insert>
 
+	<!-- 로그인 -->
+	<select id="signin" resultType="com.toon.domain.MemberVO">
+		select
+		userId, userName, userPass,
+		userPhone, userTag, userPoint, regiDate, verify
+		from
+		tbl_member
+		where userId = #{userId}
+	</select>
 </mapper>
