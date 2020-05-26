@@ -35,6 +35,7 @@ import com.toon.domain.ToonVO;
 //import com.toon.domain.ReplyVO;
 //import com.toon.service.AdminService;
 //import com.toon.utils.UploadFileUtils;
+import com.toon.service.AdminService;
 
 //import net.sf.json.JSONArray;
 
@@ -45,7 +46,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@Inject
-	//AdminService adminService;
+	AdminService adminService;
 		
 	/*@Resource(name="uploadPath")
 	private String uploadPath;*/
@@ -57,22 +58,25 @@ public class AdminController {
 	}
 	
 
-	/*// 상품 등록
-	@RequestMapping(value = "/goods/register", method = RequestMethod.GET)
-	public void getGoodsRegister(Model model) throws Exception {
-		logger.info("get goods register");
+	// 작품 등록
+	@RequestMapping(value = "/toons/register", method = {RequestMethod.GET, RequestMethod.POST})
+	public String postToonRegister(ToonVO vo) throws Exception {
+		logger.info("get toon register");
 		
-		List<CategoryVO> category = null;  // CatagoryVO 형태의 List형 변수 category 선언
-		category = adminService.category();  // DB에 저장된 카테고리를 가져와서 category에 저장
-		model.addAttribute("category", JSONArray.fromObject(category));  // 변수 category를 제이슨(json)타입으로 변환하여 category 세션에 부여
+		adminService.register(vo);
+		
+		return "redirect:/admin/index";
+	}		
+		//List<CategoryVO> category = null;  // CatagoryVO 형태의 List형 변수 category 선언
+		//category = adminService.category();  // DB에 저장된 카테고리를 가져와서 category에 저장
+		//model.addAttribute("category", JSONArray.fromObject(category));  // 변수 category를 제이슨(json)타입으로 변환하여 category 세션에 부여
+	
 	}
-
-	
-	
-	/*@RequestMapping(value = "/goods/register")
+	/*
+	@RequestMapping(value = "/goods/register")
 	public String insertWarn(GoodsVO vo, HttpSession session,
 			@ModelAttribute("file") MultipartFile file) {
-		
+	
 		try {
 			String imgUploadPath = uploadPath + File.separator + "imgUpload";
 			String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
@@ -328,4 +332,3 @@ public class AdminController {
 		return "redirect:/admin/shop/allReply";
 	}	
 */
-}
