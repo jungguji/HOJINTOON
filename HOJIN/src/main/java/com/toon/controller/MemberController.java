@@ -22,7 +22,7 @@ public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	@Inject
+	@Autowired
 	MemberService service;
 	
 	@Autowired
